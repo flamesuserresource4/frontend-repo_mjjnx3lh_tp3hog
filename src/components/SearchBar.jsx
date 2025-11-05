@@ -1,5 +1,6 @@
 import React from 'react';
 import { Search } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const genres = [
   'All',
@@ -18,7 +19,13 @@ const genres = [
 
 const SearchBar = ({ search, onSearch, genre, onGenreChange, sort, onSortChange }) => {
   return (
-    <div className="w-full bg-white/70 dark:bg-neutral-900/70 backdrop-blur border border-neutral-200 dark:border-neutral-800 rounded-xl p-4 shadow-sm">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.4 }}
+      transition={{ duration: 0.5 }}
+      className="w-full bg-white/70 dark:bg-neutral-900/70 backdrop-blur border border-neutral-200 dark:border-neutral-800 rounded-xl p-4 shadow-sm"
+    >
       <div className="flex flex-col md:flex-row gap-3 md:items-center">
         <div className="flex-1 relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
@@ -27,14 +34,14 @@ const SearchBar = ({ search, onSearch, genre, onGenreChange, sort, onSortChange 
             value={search}
             onChange={(e) => onSearch(e.target.value)}
             placeholder="Search movies, actors, or keywords..."
-            className="w-full pl-10 pr-3 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full pl-10 pr-3 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 outline-none focus:ring-2 focus:ring-indigo-500 transition-shadow"
           />
         </div>
         <div className="flex gap-3">
           <select
             value={genre}
             onChange={(e) => onGenreChange(e.target.value)}
-            className="px-3 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900"
+            className="px-3 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-neutral-300 dark:hover:border-neutral-600"
             aria-label="Filter by genre"
           >
             {genres.map((g) => (
@@ -46,7 +53,7 @@ const SearchBar = ({ search, onSearch, genre, onGenreChange, sort, onSortChange 
           <select
             value={sort}
             onChange={(e) => onSortChange(e.target.value)}
-            className="px-3 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900"
+            className="px-3 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-neutral-300 dark:hover:border-neutral-600"
             aria-label="Sort results"
           >
             <option value="popularity">Most Popular</option>
@@ -56,7 +63,7 @@ const SearchBar = ({ search, onSearch, genre, onGenreChange, sort, onSortChange 
           </select>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
